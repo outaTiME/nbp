@@ -10,6 +10,10 @@ var
   http = require('http'),
   path = require('path'),
 
+  // styles
+  stylus = require('stylus'),
+  nib = require('nib'),
+
   // routes
   routes = require('./routes'),
   // user = require('./routes/user'),
@@ -30,10 +34,15 @@ app.configure(function () {
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
   app.use(app.router);
-  app.use(require('stylus').middleware({
+  app.use(stylus.middleware({
     src: path.join(__dirname),
     dest: path.join(__dirname, "public"),
-    compress: true
+    compile: function (str, path) {
+      return stylus(str)
+        .set('filename', path)
+        .set('compress', true)
+        .use(nib());
+    }
   }));
   app.use(express.static(path.join(__dirname, 'public')));
   // bp

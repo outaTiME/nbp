@@ -13,5 +13,9 @@ html(class="no-js", lang="en")
   body
     block content
     block scripts
+      script(src='//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js')
+      script
+        window.jQuery || document.write('<script src="/javascripts/vendor/jquery-1.8.2.min.js"><\\/script>')
+      script(src='/javascripts/vendor/bootstrap.min.js')
     script
       var _gaq=[['_setAccount','UA-31782998-1'],['_setDomainName','outa.im'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));

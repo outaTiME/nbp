@@ -23,6 +23,7 @@
     "express": "3.0.0rc5",
     "jade": "*",
     "stylus": "*",
+    "nib": "*",
     "h5bp": "*"
   },
   "devDependencies": {
