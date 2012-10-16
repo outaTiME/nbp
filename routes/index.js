@@ -5,6 +5,6 @@
 
 exports.index = function (req, res) {
   res.render('index', {
-    title: 'seat.io'
+    title: 'Node Boilerplate'
   });
 };

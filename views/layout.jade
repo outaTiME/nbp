@@ -1,7 +1,17 @@
-doctype 5
-html
+!!! 5
+html(class="no-js", lang="en")
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    meta(charset="utf-8")
+    block title
+      title Node Boilerplate
+    meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no")
+    meta(name="apple-mobile-web-app-capable", content="yes")
+    meta(name="apple-mobile-web-app-status-bar-style", content="black")
+    block styles
+      link(rel="stylesheet", href="/stylesheets/bp.css")
+    script(src="/javascripts/vendor/modernizr-2.6.1-respond-1.1.0.min.js")
   body
     block content
+    block scripts
+    script
+      var _gaq=[['_setAccount','UA-31782998-1'],['_setDomainName','outa.im'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'));

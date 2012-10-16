@@ -6,6 +6,18 @@ module.exports = function (grunt) {
     lint: {
       app: ['grunt.js', 'app.js', 'routes/**/*.js']
     },
+    replace: {
+      dist: {
+        options: {
+          variables: {
+            timestamp: '<%= grunt.template.today() %>'
+          }
+        },
+        files: {
+          'public/': ['build/humans.txt']
+        }
+      }
+    },
     watch: {
       app: {
         files: ['<config:lint.app>'],
@@ -82,7 +94,8 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib');
+  grunt.loadNpmTasks('grunt-replace');
 
-  grunt.registerTask('default', 'lint');
+  grunt.registerTask('default', 'lint replace');
 
 };
