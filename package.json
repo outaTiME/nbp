@@ -1,0 +1,36 @@
+{
+  "name": "node-bp",
+  "version": "0.0.1",
+  "description": "Generic node boilerplate.",
+  "homepage": "http://node-bp.outa.im",
+  "keywords": ["node", "boilerplate"],
+  "author": {
+    "name": "outaTiME",
+    "url": "http://outa.im/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/outaTiME/node-bp.git"
+  },
+  "bugs": {
+    "url": "http://github.com/outaTiME/node-bp/issues"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.0.0rc5",
+    "jade": "*",
+    "stylus": "*",
+    "h5bp": "*"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.15",
+    "grunt-contrib": "~0.2.0"
+  },
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "private": true
+}
