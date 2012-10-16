@@ -1,8 +1,8 @@
 {
-  "name": "node-bp",
+  "name": "nbp",
   "version": "0.0.1",
   "description": "Generic node boilerplate.",
-  "homepage": "http://node-bp.outa.im",
+  "homepage": "http://nbp.outa.im",
   "keywords": ["node", "boilerplate"],
   "author": {
     "name": "outaTiME",
@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/outaTiME/node-bp.git"
+    "url": "http://github.com/outaTiME/nbp.git"
   },
   "bugs": {
-    "url": "http://github.com/outaTiME/node-bp/issues"
+    "url": "http://github.com/outaTiME/nbp/issues"
   },
   "main": "app.js",
   "scripts": {
