@@ -30,8 +30,8 @@
     "grunt-contrib": "~0.2.0"
   },
   "engines": {
-    "node": "~0.8.12",
-    "npm": "~1.1.63"
+    "node": "0.8.x",
+    "npm": "1.1.x"
   },
   "private": true
 }
