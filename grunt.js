@@ -4,7 +4,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: '<json:package.json>',
     lint: {
-      app: ['grunt.js', 'app.js', 'routes/**/*.js']
+      app: ['grunt.js', 'app.js', 'models/**/*.js', 'routes/**/*.js']
     },
     replace: {
       dist: {
