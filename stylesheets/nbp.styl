@@ -3,6 +3,8 @@
 
 body {
   background: url("/images/light_noise_diagonal.png") center top repeat;
+  font-size: 13px;
+  line-height: 18px;
 }
 
 /** Touch **/
@@ -42,9 +44,9 @@ body {
 /** Content **/
 
 #box {
-  /* padding: 18px;
-  background: #fff;
-  border: 1px solid red; */
+  padding: 18px;
+  /* background: #fff;
+  border: 1px solid #ddd; */
   text-align: center;
   position: relative;
 }
@@ -54,6 +56,10 @@ body {
 
 #box .alert {
   padding: 8px 14px;
+}
+
+form {
+  margin: 0;
 }
 
 /** Flex **/
@@ -107,6 +113,41 @@ hr.soften {
   background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.1), rgba(0,0,0,0));
   background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,.1), rgba(0,0,0,0));
   border: 0;
+}
+
+.effect3 {
+  position: relative;
+}
+
+.effect3:before,
+.effect3:after {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 90%;
+  max-width: 300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+
+.effect3:after {
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
 }
 
 /** Custom **/

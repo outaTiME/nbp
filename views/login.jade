@@ -1,0 +1,29 @@
+extends templates/dialog
+
+block title
+  title Log In &#8212; Node Boilerplate
+
+append box
+
+  script(type="text/javascript")
+    var data = !{JSON.stringify(message)};
+
+  .login
+      h2 Log In
+      hr.soften
+      - if (message.length > 0) {
+        .alert.alert-error
+          strong Oh snap!&nbsp;
+          | Error found while trying to authenticate user.
+      - }
+      form(action="/login", method='POST')
+        fieldset
+          div
+            .control-group
+              .controls
+                input(name="username", type="text", placeholder="Username")
+            .control-group
+              .controls
+                input(name="password", type="password", placeholder="Password")
+        .submit
+          button.btn.btn-primary(type="submit", onclick="$(this).css('visibility', 'hidden');") Sign In

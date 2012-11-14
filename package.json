@@ -29,7 +29,10 @@
     "bcrypt": "*",
     "i18next": "1.x",
     "config": "*",
-    "yaml": "*"
+    "yaml": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "connect-flash": "*"
   },
   "devDependencies": {
     "grunt": "~0.3.15",

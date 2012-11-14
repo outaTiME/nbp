@@ -24,7 +24,14 @@ var
   // HTML5 Boilerplate
   h5bp = require('h5bp'),
 
+  // configuration
   config = require('config'),
+
+  // passport
+  passport = require('passport'),
+
+  // flash
+  flash = require('connect-flash'),
 
   // application
   app = express();
@@ -36,7 +43,7 @@ i18n.init({
 
 // configuration
 app.configure(function () {
-  app.set('port', process.env.PORT || config.port);
+  app.set('port', process.env.PORT || config.server.port);
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'jade');
   app.use(express.favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -46,6 +53,9 @@ app.configure(function () {
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
+  app.use(flash());
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(app.router);
   app.use(stylus.middleware({
     src: path.join(__dirname),
@@ -74,8 +84,86 @@ app.configure('development', function () {
 
 i18n.registerAppHelper(app);
 
+// mongoose
+
+var
+  mongoose = require('mongoose');
+
+mongoose.set('debug', config.verbose);
+
+mongoose.connect(process.env.MONGOHQ_URL || config.database.uri);
+
+// passport
+
+var
+  LocalStrategy = require('passport-local').Strategy,
+  User = require('./models/user');
+
+passport.use(new LocalStrategy(
+  function (username, password, done) {
+    User.findOne({ username: username }, function (err, user) {
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, {
+          message: 'Unknown user'
+        });
+      }
+      // test a matching password
+      user.comparePassword(password, function (err, isMatch) {
+        if (err) {
+          return done(err);
+        }
+        if (!isMatch) {
+          return done(null, false, {
+            message: 'Invalid password'
+          });
+        }
+      });
+      return done(null, user);
+    });
+  }
+));
+
+app.get('/login', function (req, res) {
+  var user = req.user, message = req.flash('error');
+  res.render('login', {
+    user: user,
+    message: message
+  });
+});
+
+app.post('/login',
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+    failureFlash: true
+  })
+);
+
+app.get('/logout', function (req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
+// Simple route middleware to ensure user is authenticated.
+//   Use this route middleware on any resource that needs to be protected.  If
+//   the request is authenticated (typically via a persistent login session),
+//   the request will proceed.  Otherwise, the user will be redirected to the
+//   login page.
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
+
+// default routes
+
 app.get('/', routes.index);
-// app.get('/users', user.list);
+
+// app.get('/users', ensureAuthenticated, user.list);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
