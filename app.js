@@ -38,6 +38,7 @@ var
 
 i18n.init({
   fallbackLng: 'en',
+  // ignoreRoutes: ['images/', 'javascripts/', 'stylesheets/'],
   debug: config.verbose
 });
 
@@ -49,14 +50,8 @@ app.configure(function () {
   app.use(express.favicon(path.join(__dirname, 'public', 'favicon.ico')));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
-  app.use(i18n.handle);
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
-  app.use(express.session());
-  app.use(flash());
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(app.router);
   app.use(stylus.middleware({
     src: path.join(__dirname),
     dest: path.join(__dirname, 'public'),
@@ -68,6 +63,12 @@ app.configure(function () {
     }
   }));
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.session());
+  app.use(flash());
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(i18n.handle);
+  app.use(app.router);
   // bp
   app.use(h5bp.ieEdgeChromeFrameHeader());
   app.use(h5bp.protectDotfiles());
@@ -86,18 +87,32 @@ i18n.registerAppHelper(app);
 
 // mongoose
 
-var
-  mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 mongoose.set('debug', config.verbose);
 
 mongoose.connect(process.env.MONGOHQ_URL || config.database.uri);
+
+mongoose.connection.on('error', function (err) {
+  console.error('MongoDB error: ' + err.message);
+  console.error('Make sure a mongoDB server is running and accessible by this application');
+});
 
 // passport
 
 var
   LocalStrategy = require('passport-local').Strategy,
   User = require('./models/user');
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
+});
 
 passport.use(new LocalStrategy(
   function (username, password, done) {
@@ -128,6 +143,7 @@ passport.use(new LocalStrategy(
 
 app.get('/login', function (req, res) {
   var user = req.user, message = req.flash('error');
+  console.info(message);
   res.render('login', {
     user: user,
     message: message

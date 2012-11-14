@@ -15,4 +15,5 @@ attic
 
 # Own generated
 config/runtime.json
-public/stylesheets/bp.css
+public/stylesheets/nbp.css
+public/stylesheets/nbp

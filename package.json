@@ -32,7 +32,8 @@
     "yaml": "*",
     "passport": "*",
     "passport-local": "*",
-    "connect-flash": "*"
+    "connect-flash": "*",
+    "async": "*"
   },
   "devDependencies": {
     "grunt": "~0.3.15",
