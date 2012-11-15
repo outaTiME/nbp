@@ -1,6 +1,13 @@
 
 {
-  "app": {
+  "login": {
+    "title": "Acceder",
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "signin": "Entrar",
+    "error": "Se ha producido un error mientras se intentaba autenticar al usuario."
+  },
+  "index": {
     "message": "Hola desde nbp!"
   }
 }

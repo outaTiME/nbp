@@ -1,6 +1,16 @@
 
 {
-  "app": {
-    "message": "Hello from nbp!"
+  "title": "Node Boilerplate",
+  "login": {
+    "title": "Log In",
+    "page_title": "$t(login.title) &#8212; $t(title)",
+    "username": "Username",
+    "password": "Password",
+    "signin": "Sign In",
+    "error": "Error found while trying to authenticate user."
+  },
+  "index": {
+    "message": "Hello from nbp!",
+    "login": "$t(login.title)"
   }
 }

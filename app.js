@@ -44,6 +44,8 @@ i18n.init({
 
 // configuration
 app.configure(function () {
+
+  // default
   app.set('port', process.env.PORT || config.server.port);
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'jade');
@@ -68,7 +70,16 @@ app.configure(function () {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(i18n.handle);
+
+  // helpers
+  app.use(function (req, res, next) {
+    res.locals.isAuthenticated = req.isAuthenticated();
+    next();
+  });
+
+  // router
   app.use(app.router);
+
   // bp
   app.use(h5bp.ieEdgeChromeFrameHeader());
   app.use(h5bp.protectDotfiles());
@@ -143,7 +154,6 @@ passport.use(new LocalStrategy(
 
 app.get('/login', function (req, res) {
   var user = req.user, message = req.flash('error');
-  console.info(message);
   res.render('login', {
     user: user,
     message: message
@@ -163,11 +173,6 @@ app.get('/logout', function (req, res) {
   res.redirect('/');
 });
 
-// Simple route middleware to ensure user is authenticated.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed.  Otherwise, the user will be redirected to the
-//   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();

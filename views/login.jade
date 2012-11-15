@@ -1,29 +1,27 @@
 extends templates/dialog
 
 block title
-  title Log In &#8212; Node Boilerplate
+  title= t("login.page_title")
 
 append box
-
-  script(type="text/javascript")
-    var data = !{JSON.stringify(message)};
-
   .login
-      h2 Log In
+      h2= t("login.title")
       hr.soften
+      - var klass = ''
       - if (message.length > 0) {
+        - klass = 'error';
         .alert.alert-error
           strong Oh snap!&nbsp;
-          | Error found while trying to authenticate user.
+          | #{t("login.error")}
       - }
       form(action="/login", method='POST')
         fieldset
           div
-            .control-group
+            .control-group(class=klass)
               .controls
-                input(name="username", type="text", placeholder="Username", autofocus)
-            .control-group
+                input(name="username", type="text", placeholder=t("login.username"), autofocus)
+            .control-group(class=klass)
               .controls
-                input(name="password", type="password", placeholder="Password")
+                input(name="password", type="password", placeholder=t("login.password"))
         .submit
-          button.btn.btn-primary(type="submit", onclick="$(this).css('visibility', 'hidden');") Sign In
+          button.btn.btn-primary(type="submit", onclick="$(this).css('visibility', 'hidden');") #{t("login.signin")}
