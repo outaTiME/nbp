@@ -4,17 +4,25 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: '<json:package.json>',
     lint: {
-      app: ['grunt.js', 'app.js', 'models/**/*.js', 'routes/**/*.js', 'fixtures/**/*.js']
+      app: [
+        'grunt.js',
+        'app.js',
+        'models/**/*.js',
+        'routes/**/*.js',
+        'helpers/**/*.js',
+        'fixtures/**/*.js',
+        'assets/javascripts/**/*.js'
+      ]
     },
     replace: {
-      dist: {
+      app: {
         options: {
           variables: {
             timestamp: '<%= grunt.template.today() %>'
           }
         },
         files: {
-          'public/': ['build/humans.txt']
+          'public/': ['assets/humans.txt']
         }
       }
     },

@@ -14,10 +14,6 @@ var
   stylus = require('stylus'),
   nib = require('nib'),
 
-  // routes
-  routes = require('./routes'),
-  // user = require('./routes/user'),
-
   // translation
   i18n = require('i18next'),
 
@@ -55,7 +51,7 @@ app.configure(function () {
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(stylus.middleware({
-    src: path.join(__dirname),
+    src: path.join(__dirname, 'assets'),
     dest: path.join(__dirname, 'public'),
     compile: function (str, path) {
       return stylus(str)
@@ -152,6 +148,7 @@ passport.use(new LocalStrategy(
   }
 ));
 
+// default routes
 app.get('/login', function (req, res) {
   var user = req.user, message = req.flash('error');
   res.render('login', {
@@ -173,18 +170,10 @@ app.get('/logout', function (req, res) {
   res.redirect('/');
 });
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-}
-
 // default routes
 
-app.get('/', routes.index);
-
-// app.get('/users', ensureAuthenticated, user.list);
+// routes
+require('./routes')(app, config);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
